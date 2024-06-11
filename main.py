@@ -19,6 +19,10 @@ def main(page: ft.Page):
         txt_number.value = 'hola'
         page.update()
 
+    def chao(e):
+        txt_number.value = 'chao'
+        page.update()
+
     page.add(
         ft.Row(
             [
@@ -26,6 +30,7 @@ def main(page: ft.Page):
                 txt_number,
                 ft.IconButton(ft.icons.ADD, on_click=plus_click),
                 ft.IconButton(ft.icons.RADIO_BUTTON_ON, on_click=hola),
+                ft.IconButton(ft.icons.SMART_BUTTON_ROUNDED, on_click=chao),
             ],
             alignment=ft.MainAxisAlignment.CENTER,
         )
