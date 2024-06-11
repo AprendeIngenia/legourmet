@@ -15,12 +15,17 @@ def main(page: ft.Page):
         txt_number.value = str(int(txt_number.value) + 1)
         page.update()
 
+    def hola(e):
+        txt_number.value = 'hola'
+        page.update()
+
     page.add(
         ft.Row(
             [
                 ft.IconButton(ft.icons.SMART_BUTTON, on_click=minus_click),
                 txt_number,
                 ft.IconButton(ft.icons.ADD, on_click=plus_click),
+                ft.IconButton(ft.icons.RADIO_BUTTON_ON, on_click=hola),
             ],
             alignment=ft.MainAxisAlignment.CENTER,
         )
