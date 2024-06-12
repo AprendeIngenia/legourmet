@@ -1,12 +1,12 @@
-from flet import *
 import cv2
+from flet import ElevatedButton, MainAxisAlignment, Page, app
 
 
 def main(page: Page):
     def video_capture(e):
         cap = cv2.VideoCapture(0)
-        cap.set(3, 1280)
-        cap.set(4, 720)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
         while True:
             ret, frame = cap.read()
             cv2.imshow('FRAMES', frame)
