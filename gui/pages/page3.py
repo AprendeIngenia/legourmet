@@ -1,6 +1,6 @@
 import flet as ft
 
-class Page2(ft.UserControl):
+class Page3(ft.UserControl):
     def __init__(self, page):
         super().__init__()
         self.page = page        
@@ -17,63 +17,66 @@ class Page2(ft.UserControl):
                     ),
                     ft.Row(
                         [
-                            ft.Text("¡Bienvenidos!", size=72, weight='bold', color='#FF6F3C'),
+                            ft.Text("¡Construye tu plato!", size=72, weight='bold', color='#00FFA3'),
                         ],
                         alignment='center'
                     ),
                     ft.Row(
                         [
-                            ft.Text("A Legourmet, el único restaurante dirigido por inteligencia artificial.", size=24, color='#00FFA3'),
+                            ft.Text("Agrega un bloque que representa un ingrediente.", size=24, color='#FFFFFF'),
                         ],
                         alignment='center'
                     ),
                     ft.Row(
                         [
-                            ft.Text("Antes de empezar con la experiencia indícanos el número de platos que deseas ordenar:", size=24, color='#00FFA3'),
+                            ft.Image(src="assets/robot.png", width=80, height=80),
+                            ft.Text("→", size=48, color='#FFFFFF'),
+                            ft.Image(src="assets/robot.png", width=80, height=80),
                         ],
                         alignment='center'
                     ),
+                    ft.Row(
+                        [
+                            ft.Text("Configúralos hasta sentir que has creado tu plato perfecto.", size=24, color='#FFFFFF'),
+                        ],
+                        alignment='center'
+                    ),
+                    ft.Row(
+                        [
+                            ft.Image(src="assets/robot.png", width=80, height=80),
+                            ft.Text("+", size=48, color='#FFFFFF'),
+                            ft.Image(src="assets/robot.png", width=80, height=80),
+                            ft.Text("→", size=48, color='#FFFFFF'),
+                            ft.Image(src="assets/robot.png", width=80, height=80),
+                        ],
+                        alignment='center'
+                    ),
+                   
                     ft.Row(
                         [
                             ft.Container(
-                                content=ft.Text("Vemos que nos acompañan # visitantes, ¿desean ordenar # platos?", size=24, color='#FFFFFF'),
-                                padding=ft.padding.symmetric(horizontal=20, vertical=10),
-                                border_radius=20,
-                                bgcolor='#3A3A3A'
-                            )
-                        ],
-                        alignment='center'
-                    ),
-                    ft.Container(height=100),  # Añadir un contenedor vacío para mover los botones más abajo
-                    ft.Row(
-                        [
-                            ft.Container(
-                                content=ft.ElevatedButton(
-                                    content=ft.Text("DECLINAR", size=32, color='#FF3131', weight='bold', font_family='Poppins'),
-                                    on_click=self.on_decline_click,
-                                    bgcolor='#ff8d8d'
-                                ),
-                                padding=ft.padding.symmetric(horizontal=20, vertical=10),
-                                border_radius=20,
+                                content=ft.Image(src="assets/robot.png", width=100, height=100),
+                                alignment=ft.alignment.center_left,  # Alinea la imagen a la izquierda
+                                expand=True
                             ),
-                            ft.Image(src="assets/robot.png", width=150, height=150),  # Añadir la imagen entre los botones
                             ft.Container(
                                 content=ft.ElevatedButton(
-                                    content=ft.Text("ACEPTAR", size=32, color='#008F5C', weight='bold', font_family='Poppins'),
+                                    content=ft.Text("ARMA TU PLATO", size=32, color='#008F5C', weight='bold', font_family='Poppins'),
                                     on_click=self.on_accept_click,
                                     bgcolor='#00FFA3'
                                 ),
                                 padding=ft.padding.symmetric(horizontal=20, vertical=10),
                                 border_radius=20,
+                                alignment=ft.alignment.center_right,  # Alinea el botón a la derecha
+                                expand=True
                             )
                         ],
-                        alignment='center',
-                        spacing=100  # Aumentar el espacio entre los botones
-                    ),
-                    
+                        alignment='space_between',  # Distribuye el espacio entre los elementos
+                        expand=True  # Asegura que el Row ocupe todo el espacio disponible
+                    )
                 ],
                 alignment='center',
-                spacing=20
+                spacing=10
             ),
             padding=ft.padding.all(20),
             gradient=ft.LinearGradient(
@@ -85,9 +88,6 @@ class Page2(ft.UserControl):
             width=self.page.window_width,
             height=self.page.window_height,
         )
-    def on_decline_click(self, e):
-        self.page.go("/")
 
     def on_accept_click(self, e):
-        self.page.go("/page3")
-
+        self.page.go("/page4")

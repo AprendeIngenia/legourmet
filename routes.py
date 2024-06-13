@@ -1,12 +1,16 @@
 from flet import *
 from gui.pages.home import Home
 from gui.pages.page2 import Page2
+from gui.pages.page3 import Page3
+from gui.pages.page4 import Page4
 from gui.pages.captureTest import CaptureTest
 
 def route_change(page, route):
     views = {
         "/": Home(page).build(),
         "/page2": Page2(page).build(),
+        "/page3": Page3(page).build(),
+        "/page4": Page4(page).build(),
         "/captureTest": CaptureTest(page).build(),
     }
     return views.get(route, Home(page).build())

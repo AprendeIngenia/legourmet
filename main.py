@@ -1,25 +1,22 @@
-import cv2
-from flet import ElevatedButton, MainAxisAlignment, Page, app
-
+from flet import *
+import flet
+from routes import on_route_change, on_view_pop, route_change
 
 def main(page: Page):
-    def video_capture(e):
-        cap = cv2.VideoCapture(0)
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
-        while True:
-            ret, frame = cap.read()
-            cv2.imshow('FRAMES', frame)
-            t = cv2.waitKey(5)
-            if t == 27:
-                break
-        cap.release()
-        cv2.destroyAllWindows()
+    # Hacer la ventana redimensionable
+    page.window_resizable = True
+    page.padding = 0
 
-    page.title = "LEGOURMET"
-    page.vertical_alignment = MainAxisAlignment.CENTER
-    page.add(ElevatedButton(text="Tomar pedido", on_click=video_capture))
-    page.update()
+    # Definir dimensiones de la ventana
+    page.window_max_height = 720
+    page.window_max_width = 1280
+    page.window_width = 1280
+    page.window_height = 720
+    page.theme_mode = ThemeMode.SYSTEM    
 
+    # Redirigir a la página de inicio
+    page.on_route_change = on_route_change(page)
+    page.on_view_pop = on_view_pop(page)
+    page.go("/")
 
-app(main)
+flet.app(target=main)
