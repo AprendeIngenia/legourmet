@@ -1,12 +1,12 @@
-from flet import *
 import cv2
+from flet import ElevatedButton, MainAxisAlignment, Page, app
 
 from flet import *
 import flet
 from gui.pages.page_routes import route_change, on_route_change, on_view_pop
 
 
-def main(page: Page):
+def main(page: Page):i
     page.window_resizable = True
     page.padding = 0
     page.window_max_height = 720
