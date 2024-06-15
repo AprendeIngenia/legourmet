@@ -1,0 +1,1 @@
+plate_path: str = 'gui/resources/images/plate.png'

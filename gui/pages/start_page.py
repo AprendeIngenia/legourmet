@@ -1,8 +1,4 @@
 from flet import *
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-from frame_process.processor import PeopleProcessing
 
 
 class Start:
@@ -19,8 +15,6 @@ class Start:
                 windows=PageTransitionTheme.FADE_UPWARDS,
             )
         )
-        # computer vision
-        self.frame_processor = PeopleProcessing()
 
     def main(self):
         legourmet_title = Text(
@@ -47,14 +41,18 @@ class Start:
         elements = Container(
             content=Column(
                 [
-                        Row([legourmet_watermark]),
-                        Row([legourmet_title], alignment='center'),
-                        Row([start_button], alignment='center')
-                        ], alignment=MainAxisAlignment.CENTER, spacing=150), padding=padding.all(0),
-            gradient=gradient_bg, expand=True
+                    Row([legourmet_watermark], alignment='start'),
+                    Row([legourmet_title], alignment='center'),
+                    Row([start_button], alignment='center')
+                ],
+                alignment=MainAxisAlignment.CENTER,
+                spacing=150
+            ),
+            padding=padding.all(0),
+            gradient=gradient_bg,
+            expand=True
         )
         return elements
 
     def start(self, e):
         self.page.go("/welcome_page")
-        self.frame_processor.main()
