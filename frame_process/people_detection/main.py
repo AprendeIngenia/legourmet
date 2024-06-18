@@ -1,63 +1,39 @@
+from typing import List, Tuple
+
 import cv2
-import math
 import numpy as np
 from ultralytics import YOLO
-from frame_process.people_detection.models.config import (people_detect_model, people_detect_classes, people_color)
-from typing import List, Any, Tuple
+
+from frame_process.people_detection.models.config import people_color, people_detect_classes, people_detect_model
 
 
 class PeopleDetector:
     def __init__(self):
         self.model = YOLO(people_detect_model)
         self.classes = people_detect_classes
-        self.color = people_color
+        self.people_class_id = 0
+        self.people_label = "person"
+        self.people_color = people_color[self.people_label]
 
-    def check_people(self, people_frame: np.ndarray) -> Tuple[bool, Any]:
-        detect = False
+    def check_people(self, people_frame: np.ndarray) -> Tuple[bool, List]:
         results = self.model(people_frame, stream=False, conf=0.80)
-        for res in results:
-            boxes = res.boxes
-            for box in boxes:
-                cls = int(box.cls[0])
-                cls = self.classes[cls]
-                if cls in self.color:
-                    detect = True
-        if detect is False:
-            return False, results
-        else:
-            return True, results
+        detect_boxes = [box for res in results for box in res.boxes if int(box.cls[0]) == self.people_class_id]
+        return bool(detect_boxes), detect_boxes
 
-    def extract_detection_info(self, people_image: np.ndarray, detect_info: Any) -> Tuple[list, int, float]:
-        height, width, _ = people_image.shape
-        bbox: List = []
-        cls: int = 0
-        conf: float = 0.0
-        people_count: int = 0
+    def draw_detections_boxes(self, people_frame: np.ndarray, info_people: List):
+        for box in info_people:
+            x1, y1, x2, y2 = map(int, box.xyxy[0])
+            color = self.people_color
+            conf = float(box.conf[0])
+            cv2.rectangle(people_frame, (x1, y1), (x2, y2), color, 2)
+            cv2.putText(people_frame, f"{self.people_label} {conf:.4f}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, color, 2)
 
-        for res in detect_info:
-            boxes = res.boxes
-            for box in boxes:
-                # bounding box
-                x1, y1, x2, y2 = box.xyxy[0]
-                x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-                x1 = max(0, x1)
-                y1 = max(0, y1)
-                x2 = min(width, x2)
-                y2 = min(height, y2)
-                bbox = [x1, y1, x2, y2]
-
-                cls = int(box.cls[0])
-                conf = math.ceil(box.conf[0])
-                people_count = len(boxes)
-        return bbox, people_count, conf
-
-    def main(self, people_frame: np.ndarray):
+    def main(self, people_frame: np.ndarray, draw_detections: bool = True) -> int:
         check_people, info_people = self.check_people(people_frame)
+        print("check_people", check_people)
         if check_people:
-            people_bbox, people_count, conf = self.extract_detection_info(people_frame, info_people)
-            return people_count
+            if draw_detections:
+                self.draw_detections_boxes(people_frame, info_people)
+            return len(info_people)
         else:
             return 0
-
-
-

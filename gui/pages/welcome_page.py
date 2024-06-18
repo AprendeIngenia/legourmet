@@ -1,10 +1,13 @@
-from flet import *
 import os
 import sys
-import time
 import threading
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+import time
+
+from flet import *
+
 from frame_process.processor import PeopleProcessing
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 
 class Welcome:
@@ -12,8 +15,10 @@ class Welcome:
         super().__init__()
         self.page = page
         self.frame_processor = PeopleProcessing()
-        self.people_count_text = Text("", font_family='Poppins', size=34, color='#00FFA3', weight='bold')
-        self.food_plates_input = TextField(adaptive=True)
+        self.people_count_text = Text("", font_family='Poppins', size=40, color='#00FFA3', weight='bold')
+        self.food_plates_input = TextField(adaptive=True, on_change=self.manual_people_count_change)
+        self.auto_detect_people_switch = Switch(label="Auto detectar", value=True, on_change=self.toggle_processing)
+        self.processing_thread = None
 
     def start_processing(self):
         self.frame_processor.start_processing()
@@ -21,24 +26,38 @@ class Welcome:
 
     def stop_processing(self):
         self.frame_processor.stop_processing()
+        if self.processing_thread:
+            self.processing_thread = None
 
     def get_people_count(self):
         return self.frame_processor.get_people_count()
 
     def update_people_count(self):
         def update():
-            while True:
+            while self.auto_detect_people_switch.value:
                 number_people = self.get_people_count()
                 self.people_count_text.value = f'Vemos que nos acompañan {number_people} visitantes.'
                 self.food_plates_input.label = f'¿Desean ordenar {number_people} platos?'
                 self.food_plates_input.value = number_people
                 self.page.update()
-                time.sleep(2)
+                time.sleep(1)
 
-        threading.Thread(target=update, daemon=True).start()
+        self.processing_thread = threading.Thread(target=update, daemon=True)
+        self.processing_thread.start()
+
+    def toggle_processing(self, e):
+        if self.auto_detect_people_switch.value:
+            self.start_processing()
+        else:
+            self.stop_processing()
+
+    def manual_people_count_change(self, e):
+        # Desactivar auto detección cuando el usuario cambie el valor manualmente
+        self.auto_detect_people_switch.value = False
+        self.stop_processing()
+        self.page.update()
 
     def main(self):
-        self.start_processing()
 
         legourmet_watermark = Text(
             value="Legourmet by Geniiia", font_family='Poppins', size=10, weight='bold', color='#FFFFFF')
@@ -96,7 +115,8 @@ class Welcome:
                     ),
                     Row(
                         [
-                            self.food_plates_input
+                            self.food_plates_input,
+                            self.auto_detect_people_switch
                         ], alignment='center'
                     ),
                     Row(
