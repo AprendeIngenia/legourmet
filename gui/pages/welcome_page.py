@@ -2,11 +2,8 @@ import os
 import sys
 import threading
 import time
-
 from flet import *
-
 from frame_process.processor import PeopleProcessing
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 
@@ -60,7 +57,7 @@ class Welcome:
     def main(self):
 
         legourmet_watermark = Text(
-            value="Legourmet by Geniiia", font_family='Poppins', size=10, weight='bold', color='#FFFFFF')
+            value="Legourmet by Geniiia", font_family='Poppins', size=10, color='#FFFFFF')
 
         text_welcome = Text("¡Bienvenidos a Legourmet!", font_family='Poppins', size=72, weight='bold', color='#FF7F50')
 
