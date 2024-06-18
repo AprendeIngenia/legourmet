@@ -39,16 +39,10 @@ class PeopleProcessing:
                 sleep(1)
                 continue
             people_count = self.people_processor.main(frame)
-            people_count = self.people_processor.main(frame, draw_detections=True)
 
             with self.lock:
                 self.people_count = people_count
-            # cv2.imshow('people detect', frame)
-            # if cv2.waitKey(1) == 27:
-            #     self.stop_processing()
-            #     break
 
-            cv2.imshow('people detect', frame)
             if cv2.waitKey(1) == 27:
                 self.stop_processing()
                 break

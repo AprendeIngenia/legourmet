@@ -2,6 +2,7 @@ from flet import *
 from gui.pages.start_page import Start
 from gui.pages.welcome_page import Welcome
 from gui.pages.food_build_page import FoodBuild
+from gui.pages.food_input_page import InputFood
 
 
 def main(page: Page):
@@ -20,6 +21,7 @@ def main(page: Page):
     start_page = Start(page)
     welcome_page = Welcome(page)
     food_build = FoodBuild(page)
+    input_food = InputFood(page)
 
     def route_change(route):
         page.views.clear()
@@ -43,6 +45,14 @@ def main(page: Page):
                 View(
                     route="/food_build_page",
                     controls=[food_build.main()],
+                )
+            )
+
+        elif page.route == "/food_input_page":
+            page.views.append(
+                View(
+                    route="/food_input_page",
+                    controls=[input_food.main()],
                 )
             )
         page.update()

@@ -17,11 +17,11 @@ class Start:
         )
 
     def main(self):
+        legourmet_watermark = Text(
+            value="Legourmet by Geniia", font_family='Poppins', size=10, color='#FFFFFF')
+
         legourmet_title = Text(
             value="Legourmet", font_family='Poppins', size=72, weight='bold', color='#00FFA3')
-
-        legourmet_watermark = Text(
-            value="Legourmet", font_family='Poppins', size=10, weight='bold', color='#FFFFFF')
 
         gradient_bg = LinearGradient(
             begin=alignment.top_left, end=alignment.bottom_right, colors=['#003e4b', '#0c0822'])
@@ -45,10 +45,7 @@ class Start:
                     Row([legourmet_title], alignment='center'),
                     Row([start_button], alignment='center')
                 ],
-                alignment=MainAxisAlignment.CENTER,
-                spacing=150
             ),
-            padding=padding.all(0),
             gradient=gradient_bg,
             expand=True
         )

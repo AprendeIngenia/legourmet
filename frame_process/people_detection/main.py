@@ -30,7 +30,6 @@ class PeopleDetector:
 
     def main(self, people_frame: np.ndarray, draw_detections: bool = True) -> int:
         check_people, info_people = self.check_people(people_frame)
-        print("check_people", check_people)
         if check_people:
             if draw_detections:
                 self.draw_detections_boxes(people_frame, info_people)

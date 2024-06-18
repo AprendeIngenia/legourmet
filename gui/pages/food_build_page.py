@@ -1,8 +1,8 @@
 from flet import *
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from gui.resources.resources_path import ImagePaths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 class FoodBuild:
@@ -13,7 +13,7 @@ class FoodBuild:
 
     def main(self):
         legourmet_watermark = Text(
-            value="Legourmet by Geniiia", font_family='Poppins', size=10, weight='bold', color='#FFFFFF')
+            value="Legourmet by Geniiia", font_family='Poppins', size=10, color='#FFFFFF')
 
         text_build = Text("¡Construye tu plato!", size=72, weight='bold', color='#00FFA3', font_family='Poppins')
 
@@ -21,6 +21,8 @@ class FoodBuild:
 
         text_3 = Text("Configuralos hasta sentir que has creado tu plato perfecto", size=24, color='#FFFFFF',
                       font_family='Poppins')
+
+        text_button = Text("ARMA TU PLATO", size=32, color='#008F5C', weight='bold', font_family='Poppins')
 
         img_brick = Image(src=self.images.brick_img, width=80, height=80)
         arrow = Text("→", size=48, color='#FFFFFF')
@@ -68,8 +70,24 @@ class FoodBuild:
                             arrow,
                             img_plate
                         ], alignment='center'
+                    ),
+                    Row(
+                        [
+                            Container(
+                                content=ElevatedButton(
+                                    content=text_button, on_click=self.create_food_plate, bgcolor='#00FFA3'
+                                ),
+                                padding=padding.symmetric(horizontal=20, vertical=10),
+                                border_radius=20,
+                                alignment=alignment.center_right,
+                                expand=True
+                            )
+                        ]
                     )
                 ]
             ), gradient=gradient, expand=True
         )
         return elements
+
+    def create_food_plate(self, e):
+        self.page.go("/food_input_page")
