@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from gui.resources.images.start_page.image_1 import image_1_path
 from gui.resources.images.start_page.image_2 import image_2_path
 from gui.resources.images.start_page.image_3 import image_3_path
+from gui.resources.images.welcome_page.image_4 import image_4_path
 from gui.resources.images.bot import bot_image_path
 from gui.resources.images.bot_shade import bot_shade_path
 from gui.resources.images.brick import brick_path
@@ -21,6 +22,7 @@ class ImagePaths(BaseModel):
     image_1: str = image_1_path
     image_2: str = image_2_path
     image_3: str = image_3_path
+    image_4: str = image_4_path
 
     bot_img: str = bot_image_path
     bot_shade_img: str = bot_shade_path
