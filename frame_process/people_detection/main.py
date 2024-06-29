@@ -16,7 +16,7 @@ class PeopleDetector:
         self.people_color = people_color[self.people_label]
 
     def check_people(self, people_frame: np.ndarray) -> Tuple[bool, List]:
-        results = self.model(people_frame, stream=False, conf=0.80)
+        results = self.model(people_frame, stream=False, conf=0.60)
         detect_boxes = [box for res in results for box in res.boxes if int(box.cls[0]) == self.people_class_id]
         return bool(detect_boxes), detect_boxes
 

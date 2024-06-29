@@ -4,18 +4,29 @@ import threading
 import time
 from flet import *
 from frame_process.processor import PeopleProcessing
+from gui.resources.resources_path import (ImagePaths, FontsPath)
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 
 class Welcome:
     def __init__(self, page):
         super().__init__()
-        self.page = page
+        self.images = ImagePaths()
+        self.fonts = FontsPath()
+
         self.frame_processor = PeopleProcessing()
-        self.people_count_text = Text("", font_family='Poppins', size=40, color='#00FFA3', weight='bold')
-        self.food_plates_input = TextField(adaptive=True, on_change=self.manual_people_count_change)
-        self.auto_detect_people_switch = Switch(label="Auto detectar", value=True, on_change=self.toggle_processing)
+
+        self.page = page
+        self.page.fonts = {
+            "Brittany": self.fonts.brittany_font,
+            "Cardo": self.fonts.cardo_font
+        }
+
+        self.people_count_text = Text("", font_family='Cardo', size=20, color='#FFFFFF')
+        self.food_plates_input = TextField(label="", width=200, text_size=20, color='#FFFFFF', border_color='#DB7024',
+                                           border_radius=10, on_change=self.manual_people_count_change)
         self.processing_thread = None
+        self.ia_process: bool = True
 
     def start_processing(self):
         self.frame_processor.start_processing()
@@ -31,99 +42,110 @@ class Welcome:
 
     def update_people_count(self):
         def update():
-            while self.auto_detect_people_switch.value:
+            while self.ia_process:
                 number_people = self.get_people_count()
-                self.people_count_text.value = f'Vemos que nos acompañan {number_people} visitantes.'
+                self.people_count_text.value = f'Vemos que nos acompañan {number_people} visitantes'
                 self.food_plates_input.label = f'¿Desean ordenar {number_people} platos?'
                 self.food_plates_input.value = number_people
                 self.page.update()
-                time.sleep(1)
+                time.sleep(0.1)
 
         self.processing_thread = threading.Thread(target=update, daemon=True)
         self.processing_thread.start()
 
-    def toggle_processing(self, e):
-        if self.auto_detect_people_switch.value:
-            self.start_processing()
-        else:
-            self.stop_processing()
-
     def manual_people_count_change(self, e):
-        # Desactivar auto detección cuando el usuario cambie el valor manualmente
-        self.auto_detect_people_switch.value = False
+        self.people_count_text.value = f'Por favor ingresa el numero de platos que deseas ordenar'
+        self.food_plates_input.label = f'Ingresa numero de platos'
+        self.food_plates_input.value = 0
+        self.ia_process = False
         self.stop_processing()
         self.page.update()
 
     def main(self):
+        self.start_processing()
+        tapas_image = Image(src=self.images.image_4, width=520, height=1238, fit=ImageFit.COVER)
+        tapas_text = Text(
+            "Tapas",
+            font_family="Brittany",
+            size=48,
+            weight='bold',
+            color='#FFFFFF',
+            offset=Offset(2.15, -0.55)
+        )
 
-        legourmet_watermark = Text(
-            value="Legourmet by Geniiia", font_family='Poppins', size=10, color='#FFFFFF')
+        welcome_text = Text("Bienvenidos", font_family="Brittany", size=48, color='#FFFFFF', weight='bold')
+        description_text = Text("Descubre las mejores tapas ibéricas de la ciudad.", font_family="Cardo", size=20,
+                                color='#FFFFFF')
 
-        text_welcome = Text("¡Bienvenidos a Legourmet!", font_family='Poppins', size=72, weight='bold', color='#FF7F50')
+        start_button = ElevatedButton(
+            text="Aceptar",
+            bgcolor='#DB7024',
+            color='#FFFFFF',
+            width=180,
+            height=40,
+            on_click=self.number_food_plates,
+            style=ButtonStyle(
+                shape=RoundedRectangleBorder(radius=10)
+            )
+        )
 
-        text_2 = Text("el único restaurante dirigido por inteligencia artificial.", size=20,
-                      color='#FFFFFF', font_family='Open sans')
+        cancel_button = ElevatedButton(
+            text="Declinar",
+            bgcolor='#A9A9A9',
+            color='#FFFFFF',
+            width=180,
+            height=40,
+            on_click=self.manual_people_count_change,
+            style=ButtonStyle(
+                shape=RoundedRectangleBorder(radius=10)
+            )
+        )
 
-        text_3 = Text("Antes de empezar con la experiencia indicanos el número de platos que deseas ordenar:", size=20,
-                      color='#FFFFFF', font_family='Open sans')
+        left_column = Stack(
+            [
+                tapas_image,
+                tapas_text,
+            ],
+            width=520,
+            height=1238,
+            alignment=Alignment(-1, 0)
+        )
 
-        plates_button = Container(
-            content=ElevatedButton(
-                content=Container(
-                    content=Column(
-                        [Text(value="ORDENAR", size=24, color='#008F5C', weight='bold',
-                              font_family='Poppins')],
-                        alignment=MainAxisAlignment.CENTER, spacing=3),
-                    padding=padding.all(8)),
-                on_click=self.number_food_plates, bgcolor='#00FFA3'),
-            padding=padding.symmetric(horizontal=2, vertical=2),
-            border_radius=20)
-
-        gradient = LinearGradient(
-            begin=alignment.top_left, end=alignment.bottom_right, colors=['#0B0B24', '#1A1C1E'])
+        right_column = Column(
+            controls=[
+                welcome_text,
+                description_text,
+                self.people_count_text,
+                self.food_plates_input,
+                Row(
+                    controls=[
+                        start_button,
+                        cancel_button
+                    ],
+                    alignment='center',
+                    spacing=20
+                )
+            ],
+            alignment='center',
+            horizontal_alignment='center',
+            spacing=20,
+            expand=True
+        )
 
         elements = Container(
-            content=Column(
-                [
-                    Row(
-                        [
-                            legourmet_watermark
-                        ], alignment='start'
-                    ),
-                    Row(
-                        [
-                            text_welcome
-                        ], alignment='center'
-                    ),
-                    Row(
-                        [
-                            text_2
-                        ], alignment='center'
-                    ),
-                    Row(
-                        [
-                            text_3
-                        ], alignment='center'
-                    ),
-                    Row(
-                        [
-                            self.people_count_text
-                        ], alignment='center'
-                    ),
-                    Row(
-                        [
-                            self.food_plates_input,
-                            self.auto_detect_people_switch
-                        ], alignment='center'
-                    ),
-                    Row(
-                        [
-                            plates_button
-                        ], alignment='center'
-                    )
-                ]
-            ), gradient=gradient, expand=True
+            content=Row(
+                controls=[
+                    left_column,
+                    right_column
+                ],
+                alignment='spaceBetween',
+                vertical_alignment='center',
+            ),
+            bgcolor='#0E0E0E',
+            padding=padding.all(50),
+            expand=True
         )
+
         return elements
 
     def number_food_plates(self, e):

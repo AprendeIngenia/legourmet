@@ -9,23 +9,12 @@ class Start:
         self.fonts = FontsPath()
 
         self.page = page
-        self.page.title = "Inicio"
-        self.page.bgcolor = "#0E0E0E"
-        self.page.theme = Theme(
-            page_transitions=PageTransitionsTheme(
-                android=PageTransitionTheme.FADE_UPWARDS,
-                ios=PageTransitionTheme.CUPERTINO,
-                macos=PageTransitionTheme.ZOOM,
-                linux=PageTransitionTheme.ZOOM,
-                windows=PageTransitionTheme.FADE_UPWARDS,
-            ),
-        )
-
-    def main(self):
         self.page.fonts = {
             "Brittany": self.fonts.brittany_font,
             "Cardo": self.fonts.cardo_font
         }
+
+    def main(self):
         tapas_text = Text(
             "Tapas",
             font_family="Brittany",
