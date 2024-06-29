@@ -1,11 +1,16 @@
 from flet import *
+from gui.resources.resources_path import (ImagePaths, FontsPath)
 
 
 class Start:
     def __init__(self, page):
         super().__init__()
-        # GUI
+        self.images = ImagePaths()
+        self.fonts = FontsPath()
+
         self.page = page
+        self.page.title = "Inicio"
+        self.page.bgcolor = "#0E0E0E"
         self.page.theme = Theme(
             page_transitions=PageTransitionsTheme(
                 android=PageTransitionTheme.FADE_UPWARDS,
@@ -13,40 +18,104 @@ class Start:
                 macos=PageTransitionTheme.ZOOM,
                 linux=PageTransitionTheme.ZOOM,
                 windows=PageTransitionTheme.FADE_UPWARDS,
-            )
+            ),
         )
 
     def main(self):
-        legourmet_watermark = Text(
-            value="Legourmet by Geniia", font_family='Poppins', size=10, color='#FFFFFF')
+        self.page.fonts = {
+            "Brittany": self.fonts.brittany_font,
+            "Cardo": self.fonts.cardo_font
+        }
+        tapas_text = Text(
+            "Tapas",
+            font_family="Brittany",
+            size=48,
+            weight='bold',
+            color='#FFFFFF'
+        )
 
-        legourmet_title = Text(
-            value="Legourmet", font_family='Poppins', size=72, weight='bold', color='#00FFA3')
+        carnes_quesos_text = Text(
+            "Carnes y quesos",
+            font_family='Cardo',
+            size=60,
+            weight='bold',
+            color='#DB7024'
+        )
+        madurados_text = Text(
+            "madurados",
+            font_family='Cardo',
+            size=60,
+            weight='bold',
+            color='#DB7024'
+        )
+        start_button = ElevatedButton(
+            text="Inicio",
+            on_click=self.start,
+            bgcolor='#DB7024',
+            color='#FFFFFF',
+            width=180,
+            height=40,
+            style=ButtonStyle(
+                shape=RoundedRectangleBorder(radius=10)
+            )
+        )
 
-        gradient_bg = LinearGradient(
-            begin=alignment.top_left, end=alignment.bottom_right, colors=['#003e4b', '#0c0822'])
+        carnes_image = Image(src=self.images.image_1, width=252, height=800, fit=ImageFit.COVER)
+        quesos_image = Image(src=self.images.image_2, width=252, height=800, fit=ImageFit.COVER)
+        toppings_image = Image(src=self.images.image_3, width=252, height=800, fit=ImageFit.COVER)
 
-        start_button = Container(
-            content=ElevatedButton(
-                content=Container(
-                    content=Column(
-                        [Text(value="INICIAR", size=24, color='#008F5C', weight='bold',
-                              font_family='Poppins')],
-                        alignment=MainAxisAlignment.CENTER, spacing=3),
-                    padding=padding.all(8)),
-                on_click=self.start, bgcolor='#00FFA3'),
-            padding=padding.symmetric(horizontal=2, vertical=2),
-            border_radius=20)
+        carnes_column = Stack(
+            [
+                carnes_image,
+                Text("Carnes", font_family="Brittany", size=48, color='#FFFFFF', offset=Offset(0.5, -0.55)),
+            ],
+            width=252,
+            height=800
+        )
+
+        quesos_column = Stack(
+            [
+                quesos_image,
+                Text("Quesos", font_family="Brittany", size=48, color='#FFFFFF', offset=Offset(0.5, -0.55)),
+            ],
+            width=252,
+            height=800
+        )
+
+        toppings_column = Stack(
+            [
+                toppings_image,
+                Text("Toppings", font_family="Brittany", size=48, color='#FFFFFF', offset=Offset(0.5, -0.55)),
+            ],
+            width=252,
+            height=800
+        )
+
+        left_column = Column(
+            controls=[
+                tapas_text,
+                carnes_quesos_text,
+                madurados_text,
+                start_button
+            ],
+            alignment='center',
+            horizontal_alignment='center',
+            spacing=0
+        )
 
         elements = Container(
-            content=Column(
-                [
-                    Row([legourmet_watermark], alignment='start'),
-                    Row([legourmet_title], alignment='center'),
-                    Row([start_button], alignment='center')
+            content=Row(
+                controls=[
+                    left_column,
+                    carnes_column,
+                    quesos_column,
+                    toppings_column
                 ],
+                alignment='spaceEvenly',
+                vertical_alignment='center',
             ),
-            gradient=gradient_bg,
+            bgcolor='#0E0E0E',
+            padding=0,
             expand=True
         )
         return elements
