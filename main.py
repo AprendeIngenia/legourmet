@@ -7,15 +7,12 @@ from gui.pages.food_input_page import InputFood
 
 def main(page: Page):
     page.title = "Legourmet"
-    page.window_resizable = True
+    page.window_resizable = False
     page.padding = 0
-    page.window_max_height = 720
-    page.window_max_width = 1280
-    page.window_width = 1280
-    page.window_height = 720
+    page.window_width = 1536
+    page.window_height = 2048
     page.vertical_alignment = "center"
     page.horizontal_alignment = "center"
-    page.theme_mode = ThemeMode.SYSTEM
 
     # pages
     start_page = Start(page)

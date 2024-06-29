@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2249873-c5ea-49b6-9f93-fec6521dcdfc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/gui/resources/images/plate.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gui/resources/images/tapas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_06_2024_11_56_AM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_06_2024_11_56_AM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frame_process/processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_process/processor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/pages/food_build_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/pages/food_build_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/pages/start_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/pages/start_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/pages/welcome_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/pages/welcome_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/resources/resources_path.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/resources/resources_path.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,14 +33,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/gui&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/M.2/Escritorio/YouTube/Programacion/Robotica/Vex/legourmet/gui/resources/images&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/M.2/Escritorio/YouTube/Programacion/Robotica/Vex/legourmet/gui/resources/images",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\M.2\Escritorio\YouTube\Programacion\Robotica\Vex\legourmet\gui\resources\images" />
