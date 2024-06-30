@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 class FoodBuild:
-    def __init__(self, page):
+    def __init__(self, page, shared_data):
         super().__init__()
         self.page = page
         self.images = ImagePaths()
