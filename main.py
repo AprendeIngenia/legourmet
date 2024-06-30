@@ -5,68 +5,74 @@ from gui.pages.food_build_page import FoodBuild
 from gui.pages.food_input_page import InputFood
 
 
-def main(page: Page):
-    page.title = "Legourmet"
-    page.bgcolor = "#0E0E0E"
-    page.window_resizable = False
-    page.padding = 0
-    page.window_width = 1536
-    page.window_height = 2048
-    page.vertical_alignment = "center"
-    page.horizontal_alignment = "center"
+class MainApp:
+    def __init__(self, page: Page):
+        self.page = page
+        self.page.title = "Legourmet"
+        self.page.bgcolor = "#0E0E0E"
+        self.page.window_resizable = False
+        self.page.padding = 0
+        self.page.window_width = 1536
+        self.page.window_height = 2048
+        self.page.vertical_alignment = "center"
+        self.page.horizontal_alignment = "center"
 
-    page.theme = Theme(
-        page_transitions=PageTransitionsTheme(
-            android=PageTransitionTheme.FADE_UPWARDS,
-            ios=PageTransitionTheme.CUPERTINO,
-            macos=PageTransitionTheme.ZOOM,
-            linux=PageTransitionTheme.ZOOM,
-            windows=PageTransitionTheme.FADE_UPWARDS,
-        ),
-    )
+        self.page.theme = Theme(
+            page_transitions=PageTransitionsTheme(
+                android=PageTransitionTheme.FADE_UPWARDS,
+                ios=PageTransitionTheme.CUPERTINO,
+                macos=PageTransitionTheme.ZOOM,
+                linux=PageTransitionTheme.ZOOM,
+                windows=PageTransitionTheme.FADE_UPWARDS,
+            ),
+        )
 
-    # pages
-    start_page = Start(page)
-    welcome_page = Welcome(page)
-    food_build = FoodBuild(page)
-    input_food = InputFood(page)
+        self.shared_data = {}
 
-    def route_change(route):
-        page.views.clear()
-        if page.route == "/":
-            page.views.append(
+        self.start_page = Start(page)
+        self.welcome_page = Welcome(page, self.shared_data)
+        self.food_build_page = FoodBuild(page, self.shared_data)
+        self.input_food_page = InputFood(page, self.shared_data)
+
+        self.page.on_route_change = self.route_change
+        self.page.go("/")
+
+    def route_change(self, route):
+        self.page.views.clear()
+        if self.page.route == "/":
+            self.page.views.append(
                 View(
                     route="/",
-                    controls=[start_page.main()],
+                    controls=[self.start_page.main()],
                 )
             )
-        elif page.route == "/welcome_page":
-            welcome_page.start_processing()
-            page.views.append(
+        elif self.page.route == "/welcome_page":
+            self.welcome_page.start_processing()
+            self.page.views.append(
                 View(
                     route="/welcome_page",
-                    controls=[welcome_page.main()],
+                    controls=[self.welcome_page.main()],
                 )
             )
-        elif page.route == "/food_build_page":
-            page.views.append(
+        elif self.page.route == "/food_build_page":
+            self.page.views.append(
                 View(
                     route="/food_build_page",
-                    controls=[food_build.main()],
+                    controls=[self.food_build_page.main()],
                 )
             )
-
-        elif page.route == "/food_input_page":
-            page.views.append(
+        elif self.page.route == "/food_input_page":
+            self.page.views.append(
                 View(
                     route="/food_input_page",
-                    controls=[input_food.main()],
+                    controls=[self.input_food_page.main()],
                 )
             )
-        page.update()
+        self.page.update()
 
-    page.on_route_change = route_change
-    page.go("/")
+
+def main(page: Page):
+    MainApp(page)
 
 
 if __name__ == "__main__":

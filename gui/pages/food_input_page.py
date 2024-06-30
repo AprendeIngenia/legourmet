@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 class InputFood:
-    def __init__(self, page):
+    def __init__(self, page, shared_data):
         super().__init__()
         self.cap = None
         self.capture = None

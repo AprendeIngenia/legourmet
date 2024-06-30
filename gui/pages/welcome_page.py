@@ -9,14 +9,14 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 
 class Welcome:
-    def __init__(self, page):
-        super().__init__()
+    def __init__(self, page, shared_data: dict):
         self.images = ImagePaths()
         self.fonts = FontsPath()
 
         self.frame_processor = PeopleProcessing()
 
         self.page = page
+        self.shared_data = shared_data
         self.page.fonts = {
             "Brittany": self.fonts.brittany_font,
             "Cardo": self.fonts.cardo_font
@@ -44,8 +44,12 @@ class Welcome:
         def update():
             while self.ia_process:
                 number_people = self.get_people_count()
-                self.people_count_text.value = f'Vemos que nos acompañan {number_people} visitantes'
-                self.food_plates_input.label = f'¿Desean ordenar {number_people} platos?'
+                if number_people == 1:
+                    self.people_count_text.value = f'Vemos que nos acompaña {number_people} visitante'
+                    self.food_plates_input.label = f'¿Deseas ordenar {number_people} plato?'
+                else:
+                    self.people_count_text.value = f'Vemos que nos acompañan {number_people} visitantes'
+                    self.food_plates_input.label = f'¿Desean ordenar {number_people} platos?'
                 self.food_plates_input.value = number_people
                 self.page.update()
                 time.sleep(0.1)
@@ -56,7 +60,8 @@ class Welcome:
     def manual_people_count_change(self, e):
         self.people_count_text.value = f'Por favor ingresa el numero de platos que deseas ordenar'
         self.food_plates_input.label = f'Ingresa numero de platos'
-        self.food_plates_input.value = 0
+        if self.ia_process:
+            self.food_plates_input.value = ""
         self.ia_process = False
         self.stop_processing()
         self.page.update()
@@ -149,6 +154,6 @@ class Welcome:
         return elements
 
     def number_food_plates(self, e):
-        num_plates = self.food_plates_input.value
+        self.shared_data['number_plates_food'] = self.food_plates_input.value
         self.page.go("/food_build_page")
         self.stop_processing()
