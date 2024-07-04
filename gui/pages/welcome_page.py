@@ -22,8 +22,8 @@ class Welcome:
             "Cardo": self.fonts.cardo_font
         }
 
-        self.people_count_text = Text("", font_family='Cardo', size=20, color='#FFFFFF')
-        self.food_plates_input = TextField(label="", width=200, text_size=20, color='#FFFFFF', border_color='#DB7024',
+        self.people_count_text = Text("", font_family='Cardo', size=24, color='#FFFFFF')
+        self.food_plates_input = TextField(label="", width=200, text_size=24, color='#FFFFFF', border_color='#DB7024',
                                            border_radius=10, on_change=self.manual_people_count_change)
         self.processing_thread = None
         self.ia_process: bool = True
@@ -79,7 +79,7 @@ class Welcome:
         )
 
         welcome_text = Text("Bienvenidos", font_family="Brittany", size=48, color='#FFFFFF', weight='bold')
-        description_text = Text("Descubre las mejores tapas ibéricas de la ciudad.", font_family="Cardo", size=20,
+        description_text = Text("Descubre las mejores tapas ibéricas de la ciudad.", font_family="Cardo", size=24,
                                 color='#FFFFFF')
 
         start_button = ElevatedButton(
@@ -154,6 +154,6 @@ class Welcome:
         return elements
 
     def number_food_plates(self, e):
-        self.shared_data['number_plates_food'] = self.food_plates_input.value
+        self.shared_data['number_plates_food'] = int(self.food_plates_input.value)
         self.page.go("/food_build_page")
         self.stop_processing()
