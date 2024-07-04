@@ -1,1 +1,1 @@
-image_7_path: str = 'gui/resources/images/start_page/image_7.png'
+image_7_path: str = 'gui/resources/images/food_build_page/image_7.png'

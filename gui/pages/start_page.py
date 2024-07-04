@@ -45,7 +45,7 @@ class Start:
             width=180,
             height=40,
             style=ButtonStyle(
-                shape=RoundedRectangleBorder(radius=10)
+                shape=RoundedRectangleBorder(radius=10),
             )
         )
 
