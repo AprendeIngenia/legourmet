@@ -23,10 +23,10 @@ class FoodBuild:
         description_text = Text("Hoy conocerás la experiencia más innovadora que jámas hayas vivido en la historia de "
                                 "la gastronomía. Abre tu mente, y prepárate para disfrutar de unas deliciosas Tapas.",
                                 font_family="Cardo", size=24,
-                                color='#FFFFFF')
+                                color='#FFFFFF', text_align="justify")
 
         understood_button = ElevatedButton(
-            text="Aceptar",
+            text="Entendido",
             bgcolor='#DB7024',
             color='#FFFFFF',
             width=180,
@@ -40,8 +40,8 @@ class FoodBuild:
         step1_tittle = Text('Paso 1:', font_family='Brittany', size=48, color='#FFFFFF', weight='bold')
         step2_tittle = Text('Paso 2:', font_family='Brittany', size=48, color='#FFFFFF', weight='bold')
         step3_tittle = Text('Paso 3:', font_family='Brittany', size=48, color='#FFFFFF', weight='bold')
-        step1_description = Text("Toma la base de construcción que te entregaron en la entrada e identifica la zona "
-                                 "de creación demarcada con un rectángulo azul.",
+        step1_description = Text("Toma la base de la mesa e identifica la zona de construcción demarcada con un "
+                                 "rectángulo naranja.",
                                  font_family="Cardo", size=24,
                                  color='#FFFFFF')
         step2_description = Text("En esta zona debes ubicar las fichas que representan los deliciosos ingredientes "
@@ -59,21 +59,21 @@ class FoodBuild:
         step1 = Row(
             controls=[
                 step1_tittle,
-                Container(content=step1_description, width=850)
+                Container(content=step1_description, width=800)
             ], alignment='center',
             spacing=20
         )
         step2 = Row(
             controls=[
                 step2_tittle,
-                Container(content=step2_description, width=850)
+                Container(content=step2_description, width=800)
             ], alignment='center',
             spacing=20
         )
         step3 = Row(
             controls=[
                 step3_tittle,
-                Container(content=step3_description, width=850)
+                Container(content=step3_description, width=800)
             ], alignment='center',
             spacing=20
         )
@@ -108,7 +108,7 @@ class FoodBuild:
             ],
             alignment='center',
             horizontal_alignment='center',
-            spacing=20,
+            spacing=30,
             expand=True
         )
 
@@ -116,7 +116,7 @@ class FoodBuild:
             content=Row(
                 controls=[
                     Container(left_column, width=400),
-                    right_column,
+                    Container(right_column, width=950),
                 ],
                 alignment='spaceBetween',
                 vertical_alignment='center',

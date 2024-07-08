@@ -7,14 +7,12 @@
     <list default="true" id="f2249873-c5ea-49b6-9f93-fec6521dcdfc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui/pages/food_build_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/pages/food_build_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/pages/start_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/pages/start_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/pages/welcome_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/pages/welcome_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_5.png" beforeDir="false" afterPath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_5_.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_6.png" beforeDir="false" afterPath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_6.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_6.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_6_.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_7.png" beforeDir="false" afterPath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_7.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_7.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_7.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/resources/images/food_build_page/image_7_.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,14 +38,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;refactor/build-page&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/M.2/Escritorio/YouTube/Programacion/Robotica/Vex/legourmet/gui/resources/images/food_build_page&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "refactor/build-page",
+    "last_opened_file_path": "D:/M.2/Escritorio/YouTube/Programacion/Robotica/Vex/legourmet/gui/resources/images/food_build_page",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\M.2\Escritorio\YouTube\Programacion\Robotica\Vex\legourmet\gui\resources\images\food_build_page" />
