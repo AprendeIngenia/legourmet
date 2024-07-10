@@ -29,7 +29,7 @@ class MainApp:
 
         self.shared_data = {}
 
-        self.start_page = Start(page)
+        self.start_page = Start(page, self.shared_data)
         self.welcome_page = Welcome(page, self.shared_data)
         self.food_build_page = FoodBuild(page, self.shared_data)
         self.input_food_page = InputFood(page, self.shared_data)
