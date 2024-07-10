@@ -1,127 +1,100 @@
 from flet import *
 import os
 import sys
-import threading
-import cv2
-import time
-import base64
-from gui.resources.resources_path import ImagePaths
+from gui.resources.resources_path import (ImagePaths, FontsPath)
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 class InputFood:
     def __init__(self, page, shared_data):
         super().__init__()
-        self.cap = None
-        self.capture = None
-        self.page = page
         self.images = ImagePaths()
-        self.image_control = Image(src=self.images.bot_img, width=640, height=480)
-        self.running = False
+        self.fonts = FontsPath()
+
+        self.page = page
+        self.shared_data = shared_data
+        self.page.fonts = {
+            "Brittany": self.fonts.brittany_font,
+            "Cardo": self.fonts.cardo_font
+        }
 
     def main(self):
-        legourmet_watermark = Text(
-            value="Legourmet by Geniiia", font_family='Poppins', size=10, color='#FFFFFF')
+        title = Text("Ingresa la base", font_family="Brittany", size=48, color='#FFFFFF', weight='bold')
 
-        text_title = Text("¡Dale vida a tu creación!", size=72, weight='bold', color='#FF6F61', font_family='Poppins')
+        step1_tittle = Text("Paso 1:", font_family='Brittany', size=48, color='#DB7024', weight='bold')
+        step2_tittle = Text('Paso 2:', font_family='Brittany', size=48, color='#DB7024', weight='bold')
+        step3_tittle = Text('Paso 3:', font_family='Brittany', size=48, color='#DB7024', weight='bold')
 
-        text_instruction = Text("Una vez estés conforme con tu creación ingresa tu tablero a nuestro sistema para "
-                                "darle vida a tu plato.", size=24, color='#FFFFFF')
+        step1_description = Text("Identifica la ranura que tengo en la parte baja de mi cuerpo.",
+                                 font_family="Cardo", size=24,
+                                 color='#FFFFFF')
+        step2_description = Text("Ingresa la base de construcción en la ranura.",
+                                 font_family="Cardo", size=24,
+                                 color='#FFFFFF')
+        step3_description = Text("Aqui puedes verificar si has ingresado correctamente tu base.",
+                                 font_family="Cardo", size=24,
+                                 color='#FFFFFF')
 
-        text_button = Text("ARMA TU PLATO", size=24, color='#008F5C', weight='bold', font_family='Poppins')
+        step1_image = Image(src=self.images.image_8, width=300, height=420, fit=ImageFit.COVER)
+        step2_image = Image(src=self.images.image_9, width=360, height=420, fit=ImageFit.COVER)
 
-        gradient = LinearGradient(
-            begin=alignment.top_left, end=alignment.bottom_right, colors=['#0B0B24', '#1A1C1E'])
+        progress_label = Text("75%", size=20, weight=FontWeight.BOLD)
+        progress_bar = ProgressBar(value=0.75, width=300, color="#DB7024")
+
+        left_column = Column(
+            controls=[
+                step1_tittle,
+                Container(step1_description, width=400),
+                step1_image
+            ],
+            alignment='center',
+            horizontal_alignment='center',
+            spacing=20,
+            expand=True
+        )
+        center_column = Column(
+            controls=[
+                title,
+                Container(height=700),
+                step3_tittle,
+                Container(step3_description, width=400),
+                progress_bar,
+                progress_label
+            ],
+            alignment='center',
+            horizontal_alignment='center',
+            spacing=20,
+            expand=True
+        )
+
+        right_column = Column(
+            controls=[
+                step2_tittle,
+                Container(step2_description, width=400),
+                step2_image
+            ],
+            alignment='center',
+            horizontal_alignment='center',
+            spacing=20,
+            expand=True
+        )
 
         elements = Container(
-            content=Column(
-                [
-                    Row(
-                        [
-                            legourmet_watermark
-                        ], alignment='start'
-                    ),
-                    Row(
-                        [
-                            text_title
-                        ], alignment='center'
-                    ),
-                    Row(
-                        [
-                            text_instruction
-                        ], alignment='center'
-                    ),
-                    Row(
-                        [
-                            Container(
-                                content=ElevatedButton(
-                                    content=text_button, on_click=self.video_capture, bgcolor='#00FFA3'
-                                ), padding=padding.symmetric(horizontal=10, vertical=10), border_radius=20,
-                                alignment=alignment.center_right, expand=True
-                            )
-                        ]
-                    ),
-                    Row(
-                        [
-                            Card(
-                                content=Container(
-                                    self.image_control,
-                                    padding=0,
-                                    border_radius=10,
-                                    bgcolor='white',
-                                    shadow=BoxShadow(
-                                        blur_radius=10,
-                                        spread_radius=5,
-                                        color='rgba(0, 0, 0, 0.2)'
-                                    ),
-                                    expand=True
-                                ),
-                                width=640,
-                                height=480,
-                                margin=margin.all(10),
-                                elevation=5
-                            )
-                        ],
-                        alignment='center',
-                        expand=True
-                    ),
-
+            content=Row(
+                controls=[
+                    left_column,
+                    center_column,
+                    right_column,
                 ],
                 alignment='center',
-                spacing=10
-            ), gradient=gradient, expand=True, padding=padding.all(20), width=self.page.window_width,
-            height=self.page.window_height,
+                vertical_alignment='start',
+            ),
+            bgcolor='#0E0E0E',
+            padding=padding.all(50),
+            expand=True
         )
         return elements
 
-    def video_capture(self, e):
-        self.start_webcam()
-
-    def start_webcam(self):
-        self.capture = cv2.VideoCapture(0)
-        self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-        self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
-        self.running = True
-        threading.Thread(target=self.update_frame, daemon=True).start()
-
-    def stop_webcam(self):
-        self.running = False
-        if self.capture:
-            self.capture.release()
-        self.image_control.src = self.images.bot_img
-        self.page.update()
-
-    def update_frame(self):
-        while self.running:
-            ret, frame = self.capture.read()
-            if not ret:
-                break
-            _, buffer = cv2.imencode('.jpg', frame)
-            jpg_as_text = base64.b64encode(buffer).decode('utf-8')
-            self.image_control.src_base64 = jpg_as_text
-            self.page.update()
-            time.sleep(0.03)
-
-    def on_close(self):
-        if self.cap:
-            self.cap.release()
+    def create_food_plate(self, e):
+        self.page.go("/confirmated_food_page")

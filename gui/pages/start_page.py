@@ -3,16 +3,18 @@ from gui.resources.resources_path import (ImagePaths, FontsPath)
 
 
 class Start:
-    def __init__(self, page):
+    def __init__(self, page, shared_data: dict):
         super().__init__()
         self.images = ImagePaths()
         self.fonts = FontsPath()
 
         self.page = page
+        self.shared_data = shared_data
         self.page.fonts = {
             "Brittany": self.fonts.brittany_font,
             "Cardo": self.fonts.cardo_font
         }
+        self.shared_data['counted_plates_food'] = 0
 
     def main(self):
         tapas_text = Text(
