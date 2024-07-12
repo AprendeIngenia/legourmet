@@ -1,15 +1,15 @@
 import threading
 from time import sleep
-
 import cv2
-
 from frame_process.people_detection.main import PeopleDetector
+from frame_process.people_detection.face_detector import FaceDetect
 
 
 class PeopleProcessing:
     def __init__(self):
         self.thread = None
         self.people_processor = PeopleDetector()
+        self.face_detector = FaceDetect()
 
         self.people_count = 0
         self.running = False
@@ -38,7 +38,8 @@ class PeopleProcessing:
                 print("Error: Could not read frame.")
                 sleep(1)
                 continue
-            people_count = self.people_processor.main(frame)
+            #people_count = self.people_processor.main(frame)
+            people_count = self.face_detector.main(frame)
 
             with self.lock:
                 self.people_count = people_count

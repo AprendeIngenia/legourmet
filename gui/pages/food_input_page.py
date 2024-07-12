@@ -56,7 +56,7 @@ class InputFood:
         center_column = Column(
             controls=[
                 title,
-                Container(height=700),
+                Container(height=730),
                 step3_tittle,
                 Container(step3_description, width=400),
                 progress_bar,
